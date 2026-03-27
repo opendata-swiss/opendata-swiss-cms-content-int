@@ -18,11 +18,6 @@ jobs:
       pull-requests: write
       statuses: write
 
-    strategy:
-      fail-fast: false
-      matrix:
-        environment: [test, int]
-
     steps:
       - name: Generate token
         if: false
@@ -46,7 +41,7 @@ jobs:
           gh workflow run preview-trigger.yaml \
             --repo opendata-swiss/metadata.swiss \
             --ref cms-ref \
-            -f env=${{ matrix.environment }} \
+            -f env=${{ env.ENVIRONMENT }} \
             -f action=UP \
             -f deployment_name="${{ steps.vars.outputs.branch }}" \
             -f cms_ref="${{ github.head_ref }}"
@@ -60,7 +55,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: "github-actions[bot]"
-          body-includes: Your ${{ matrix.environment }} preview environment is deployed
+          body-includes: Your preview environment is deployed
       - name: Show preview URL directly on the PR
         uses: peter-evans/create-or-update-comment@v5
         with:
@@ -68,8 +63,8 @@ jobs:
           edit-mode: replace
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Your ${{ matrix.environment }} preview environment is deployed! 🚀
-            **URL:** https://${{ steps.vars.outputs.branch }}.${{ matrix.environment }}-previews.ods.zazukoians.org/
+            Your preview environment is deployed! 🚀
+            **URL:** https://${{ steps.vars.outputs.branch }}.${{ env.ENVIRONMENT }}-previews.ods.zazukoians.org/
             **Note:** It may take a few minutes for the DNS to propagate, the certificate to be generated and the preview to be reachable.    
 
       - name: Stop preview environment
@@ -80,7 +75,7 @@ jobs:
           gh workflow run preview-trigger.yaml \
             --repo opendata-swiss/metadata.swiss \
             --ref cms-ref \
-            -f env=${{ matrix.environment }} \
+            -f env=${{ env.ENVIRONMENT }} \
             -f action=DOWN \
             -f deployment_name="${{ steps.vars.outputs.branch }}" \
             -f cms_ref="${{ github.head_ref }}"
