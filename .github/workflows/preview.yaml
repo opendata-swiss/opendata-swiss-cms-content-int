@@ -50,7 +50,7 @@ jobs:
             -f deployment_name="${{ steps.vars.outputs.branch }}" \
             -f cms_ref="${{ github.head_ref }}"
         env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GH_TOKEN: ${{ secrets.TRIGGER_PAT }}
 
       # Handle preview URL comment on the PR
       - name: Find Comment
@@ -84,4 +84,4 @@ jobs:
             -f deployment_name="${{ steps.vars.outputs.branch }}" \
             -f cms_ref="${{ github.head_ref }}"
         env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GH_TOKEN: ${{ secrets.TRIGGER_PAT }}
