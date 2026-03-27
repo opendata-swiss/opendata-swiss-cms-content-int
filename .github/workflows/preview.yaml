@@ -44,7 +44,7 @@ jobs:
             -f env=${{ vars.ENVIRONMENT }} \
             -f action=UP \
             -f deployment_name="${{ steps.vars.outputs.branch }}" \
-            -f cms_ref="${{ github.head_ref }}"
+            -f cms_ref="${{ github.sha }}"
         env:
           GH_TOKEN: ${{ secrets.TRIGGER_PAT }}
 
@@ -78,6 +78,6 @@ jobs:
             -f env=${{ vars.ENVIRONMENT }} \
             -f action=DOWN \
             -f deployment_name="${{ steps.vars.outputs.branch }}" \
-            -f cms_ref="${{ github.head_ref }}"
+            -f cms_ref="${{ github.sha }}"
         env:
           GH_TOKEN: ${{ secrets.TRIGGER_PAT }}
