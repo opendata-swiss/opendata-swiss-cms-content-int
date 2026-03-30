@@ -20,7 +20,7 @@ When content should be synchronised with INT/PROD, make sure to keep the TEST co
 1. Clone the TEST environment:
 
     ```bash
-    git clone git@github.com:opendata-swiss/opendata-swiss-cms-content.git
+    git clone git@github.com:opendata-swiss/opendata-swiss-cms-content-test.git
     ``` 
 2. Add remotes for INT and PROD:
 
