@@ -14,7 +14,6 @@ jobs:
       actions: write
     steps:
       - name: Generate token
-        if: false # enable when we configure the GH App to have the necessary permissions
         id: generate_token
         uses: tibdex/github-app-token@v1
         with:
