@@ -30,4 +30,4 @@ jobs:
             -f environment=$(echo "${{ vars.ENVIRONMENT }}" | tr '[:lower:]' '[:upper:]') \
             -f action=HARVEST_SHOWCASES
         env:
-          GH_TOKEN: ${{ secrets.TRIGGER_PAT }}
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
