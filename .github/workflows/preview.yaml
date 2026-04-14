@@ -89,7 +89,6 @@ jobs:
         run: |
           gh workflow run preview-trigger.yaml \
             --repo opendata-swiss/metadata.swiss \
-            --ref cms-ref \
             -f env=${{ vars.ENVIRONMENT }} \
             -f action=DOWN \
             -f deployment_name="${{ steps.vars.outputs.branch }}" \
