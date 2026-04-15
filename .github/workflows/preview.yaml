@@ -22,7 +22,6 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Generate token
-        if: false
         id: generate_token
         uses: tibdex/github-app-token@v1
         with:
@@ -47,7 +46,7 @@ jobs:
             -f deployment_name="${{ steps.vars.outputs.branch }}" \
             -f cms_ref="${{ github.sha }}"
         env:
-          GH_TOKEN: ${{ secrets.TRIGGER_PAT }}
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
 
       # Handle preview URL comment on the PR
       - name: Find Comment
@@ -94,4 +93,4 @@ jobs:
             -f deployment_name="${{ steps.vars.outputs.branch }}" \
             -f cms_ref="${{ github.sha }}"
         env:
-          GH_TOKEN: ${{ secrets.TRIGGER_PAT }}
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
